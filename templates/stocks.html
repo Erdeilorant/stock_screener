@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON to HTML Table Example</title>
+    <link rel="stylesheet" href="/static/stocks.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+
+
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Stock Screener</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+            aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/contact">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/news">News</a>
+                </li>
+                <form id="search-form" onsubmit="return checkTicker()">
+                    <label for="ticker" style="color: white;">Enter a ticker:</label>
+                    <input type="text" id="ticker" name="ticker" required="required">
+                    <button type="submit">Search</button>
+                </form>
+
+            </ul>
+        </div>
+    </nav>
+    <h1>Top Day Gainers</h1>
+    <table class="content-table">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Symbol</th>
+                <th>Name</th>
+                <th>Change</th>
+                <th>Price</th>
+                <th>Volume</th>
+                <th>Market Cap</th>
+                <th>Sector</th>
+                <th>Industry</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in gainers["data"]["data"] %}
+            <tr class="active-row">
+                <td>{{ item["no"] }}</td>
+                <td><a href="{{ url_for('stock_detail', name=item['s']) }}">{{ item["s"] }}</a></td>
+                <td>{{ item["n"] }}</td>
+                <td style="color: green;">+{{ item["change"] }}%</td>
+                <td>{{ item["price"] }}$</td>
+                <td>{{ item["volume"] }}</td>
+                <td>{{ item["marketCap"] }}</td>
+                <td>{{ item['sector'] }}</td>
+                <td>{{ item['industry']}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <h1>Top Day Losers</h1>
+    <table class="content-table">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Symbol</th>
+                <th>Name</th>
+                <th>Change</th>
+                <th>Price</th>
+                <th>Volume</th>
+                <th>Market Cap</th>
+                <th>Sector</th>
+                <th>Industry</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in losers["data"]["data"] %}
+            <tr class="active-row">
+                <td>{{ item["no"] }}</td>
+                <td><a href="{{ url_for('stock_detail', name=item['s']) }}">{{ item["s"] }}</a></td>
+                <td>{{ item["n"] }}</td>
+                <td style="color: red;">{{ item["change"] }}%</td>
+                <td>{{ item["price"] }}$</td>
+                <td>{{ item["volume"] }}</td>
+                <td>{{ item["marketCap"] }}</td>
+                <td>{{ item['sector'] }}</td>
+                <td>{{ item['industry']}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script>
+    function checkTicker() {
+        // Get the entered ticker from the form
+        var ticker = document.getElementById("ticker").value;
+
+        // Read the contents of the text file into a list
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/templates/ticker_list.txt', false);
+        xhr.send();
+        var tickers = xhr.responseText.split(',');
+
+        // Check if the ticker exists in the list of tickers
+        if (tickers.includes(ticker)) {
+            return true; // Submit the form
+        } else {
+            alert("Ticker not found"); // Notify the user that the ticker wasn't found
+            return false; // Prevent the form from being submitted
+        }
+    }
+</script>
+<script>
+    const form = document.getElementById('search-form');
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const ticker = document.getElementById('ticker').value.toUpperCase();
+        window.location.href = `/stock/${ticker}`;
+    });
+</script>
+
+</html>

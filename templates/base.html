@@ -1,0 +1,51 @@
+<!doctype html>
+<title>{% block title %}{% endblock %} - Stock Screener</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Stock Screener</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+        aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Contact</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">News</a>
+            </li>
+            <form id="search-form">
+                <label for="ticker" style="color: white;">Enter a ticker:</label>
+                <input type="text" id="ticker" name="ticker" required="required">
+                <button type="submit">Search</button>
+            </form>
+
+        </ul>
+    </div>
+</nav>
+<section class="content">
+    {% block content %}{% endblock %}
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script>
+        const form = document.getElementById('search-form');
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const ticker = document.getElementById('ticker').value.toUpperCase();
+            window.location.href = `/stock/${ticker}`;
+        });
+    </script>
+    <script>
+        function validateForm() {
+            var ticker = document.getElementById("ticker").value;
+            if (ticker == "") {
+                return false;
+            }
+        }
+    </script>
+</section>

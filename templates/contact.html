@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://kit.fontawesome.com/61f715e640.js" crossorigin="anonymous"></script>
+    <title>Contact Us - Stock Screener</title>
+    <link rel="stylesheet" type="text/css" href="/static/contact.css">
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/fontawesome.min.css"
+        integrity="sha384-QYIZto+st3yW+o8+5OHfT6S482Zsvz2WfOzpFSXMF9zqeLcFV0/wlZpMtyFcZALm" crossorigin="anonymous">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+
+
+<body>
+    <section class="contact">
+        <div class="content">
+            <h2>Contact Us</h2>
+            <p>If you have any questions or feedback regarding our stock screener website, please don't hesitate to
+                contact
+                us. We value your opinion and are committed to providing you with the best possible experience while
+                using
+                our platform.</p>
+        </div>
+        <div class="container">
+            <div class="contactInfo">
+                <div class="box">
+                    <div class="icon"><i class="fa-solid fa-location-dot"></i></div>
+                    <div class="text">
+                        <h3>Adress</h3>
+                        <p>4624 Sugar Camp Road,<br>Ottawa, Minnesota<br>55060</p>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="icon"><i class="fa-solid fa-phone"></i></div>
+                    <div class="text">
+                        <h3>Phone</h3>
+                        <p>555-555-5555</p>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="icon"><i class="fa-solid fa-envelope"></i></div>
+                    <div class="text">
+                        <h3>Email</h3>
+                        <p>info@stockscreener.com</p>
+                    </div>
+                </div>
+            </div>
+            <div class="contactForm">
+                <form action="/contact" method="POST" onsubmit="return validateForm()">
+                    <h2>Send Message</h2>
+                    <div class="input-box">
+                        <input type="text" name="name" required="required">
+                        <span>Full Name</span>
+                    </div>
+                    <div class="input-box">
+                        <input type="text" name="email" required="required">
+                        <span>Email</span>
+                    </div>
+                    <div class="input-box">
+                        <textarea name="message" required="required"></textarea>
+                        <span>Message</span>
+                    </div>
+                    <div class="input-box">
+                        <input type="submit" value="Send">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <!-- <form name="contactForm" action="/contact" method="POST" onsubmit="return validateForm()">
+                <label>Name:</label>
+                <input type="text" name="name"><br>
+                <label>Email:</label>
+                <input type="email" name="email"><br>
+                <label>Message:</label>
+                <textarea name="message"></textarea><br>
+                <input type="submit" value="Send">
+            </form> -->
+    <!-- </body>
+
+    </html>
+    <p>You can also reach us at:</p>
+    <ul>
+        <li>Phone: 555-555-5555</li>
+        <li>Email: info@stockscreener.com</li>
+        <li>Address: 123 Main St, Anytown USA</li>
+    </ul> -->
+</body>
+<script>
+    function validateForm() {
+        var name = document.forms["contactForm"]["name"].value;
+        var email = document.forms["contactForm"]["email"].value;
+        var message = document.forms["contactForm"]["message"].value;
+        if (name == "" || email == "" || message == "") {
+            alert("All fields are required!");
+            return false;
+        }
+        var emailPattern = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+        if (!email.match(emailPattern)) {
+            alert("Invalid email address!");
+            return false;
+        }
+    }
+</script>
+
+</html>

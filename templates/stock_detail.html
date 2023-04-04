@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{{ stock }} Details</title>
+    <link rel="stylesheet" href="/static/details.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+
+<body>
+    <h2>{{ stock_price_data['Symbol'] }}</h2>
+    <div style="display: flex; align-items: center;">
+        <p style="font-size: 24px; margin-right: 10px;">Price: ${{ stock_price_data['Price'] }}</p>
+        {% if stock_price_data.Change >= 0 %}
+        <p style="color:green; margin-right: 10px;">+{{ stock_price_data.Change }}</p>
+        {% else %}
+        <p style="color:red; margin-right: 10px;">{{ stock_price_data.Change }}</p>
+        {% endif %}
+
+        {% if stock_price_data.Percentage >= 0 %}
+        <p style="color:green">+{{ stock_price_data.Percentage }}%</p>
+        {% else %}
+        <p style="color:red">{{ stock_price_data.Percentage }}%</p>
+        {% endif %}
+    </div>
+    <hr>
+    {{ chart_html | safe }}
+    <h1>{{ stock }} Details</h1>
+    <h2>Company Profile</h2>
+    <hr>
+    {% for i in profile_data %}
+    {% for x in i %}
+    <p>{{ x.text }}</p>
+    {% endfor %}
+    {% endfor %}
+    <h2>Financials</h2>
+    <hr>
+    <div id="financials-container">
+        <p>Stock Financials</p>
+        <div class="container">
+            <h1>Balance sheet</h1>
+            Financials in millions USD. Fiscal year is October - September.
+            {{ table | safe }}
+        </div>
+    </div>
+    <!-- <h2>Holders</h2>
+    <div id="holders-container">
+        <p>Loading holders...</p> -->
+    </div>
+    <h1>{{ stock }} Related News</h1>
+    <hr>
+    <ul class="news-articles">
+        {% for article in news_articles %}
+        <li>
+            <div class="article-info">
+                <img src="{{ article.image['resolutions'][-1]['url'] }}" alt="{{ article.article_title }}">
+                <h2><a href="{{article.article_url}}" class="article-title">{{ article.article_title
+                        }}</a></h2>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+
+</html>

@@ -1,0 +1,77 @@
+* Style the article image */ .article-info img {
+    display: inline-block;
+    float: left;
+    margin-right: 10px;
+    width: 100px;
+    height: 100px;
+}
+
+/* Style the article title link */
+.article-info a.article-title {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Style the article title link when hovered */
+.article-info a.article-title:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.news-articles {
+    list-style: none;
+    padding: 0;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+th,
+td {
+    border: 1px solid black;
+    padding: 8px;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+.news-articles {
+    padding: 20px;
+    /* add 20 pixels of padding on all sides */
+}
+
+/* .news-articles {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.news-article {
+    width: 48%;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.news-article img {
+    max-width: 100%;
+    height: auto;
+    margin-right: 10px;
+}
+
+.article-details {
+    flex: 1;
+}
+
+.article-details h3 {
+    margin-top: 0;
+}
+
+@media (max-width: 768px) {
+    .news-article {
+        width: 100%;
+    }
+} */
